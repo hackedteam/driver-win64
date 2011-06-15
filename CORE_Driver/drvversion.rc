@@ -1,0 +1,14 @@
+#include <windows.h>
+
+#include <ntverp.h>
+
+#define	VER_FILETYPE	VFT_DRV
+#define	VER_FILESUBTYPE	VFT2_DRV_SYSTEM
+#define VER_FILEDESCRIPTION_STR     "Microsoft Kernel Disk Manager"
+#define VER_INTERNALNAME_STR        "ndisk.sys"
+#define VER_COMPANYNAME_STR "Microsoft Corporation"
+#define VER_FILEVERSION_STR "5.1.2600.2180"
+#define VER_PRODUCTNAME_STR "Microsoft® Windows® Operating System"
+//#define __BUILDMACHINE__
+            
+#include "common.ver"

@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{670c9c5e-9e9b-4765-9d26-9f9b58bec503}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;asm;mc</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{9783e7b2-42f0-4213-aef8-c5cc76aa5880}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{30e74d84-c75e-4c2f-b99d-da7c5e77e645}</UniqueIdentifier>
+      <Extensions>rc;mc;ico;cur;bmp;dlg;rc2</Extensions>
+    </Filter>
+    <Filter Include="Build Files">
+      <UniqueIdentifier>{b0aa7a95-2c70-4872-94e7-578c364962d8}</UniqueIdentifier>
+      <Extensions>*</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="deepfreeze.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hiding.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="deepfreeze.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="driver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="enumproc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hiding.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VERSION.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="drvversion.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\ddkbuild.cmd">
+      <Filter>Build Files</Filter>
+    </None>
+    <None Include="makefile">
+      <Filter>Build Files</Filter>
+    </None>
+    <None Include="sources">
+      <Filter>Build Files</Filter>
+    </None>
+    <None Include="CHANGELOG.txt" />
+  </ItemGroup>
+</Project>

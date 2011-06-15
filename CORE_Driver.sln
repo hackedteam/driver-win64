@@ -1,0 +1,86 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CORE_Driver.WLH", "CORE_Driver\CORE_Driver.WLH.vcxproj", "{9B975EC1-255D-466D-A04D-399C44C8144E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Debug|x64 = Debug|x64
+		Release|Win32 = Release|Win32
+		Release|x64 = Release|x64
+		WLH checked|Win32 = WLH checked|Win32
+		WLH checked|x64 = WLH checked|x64
+		WLH free|Win32 = WLH free|Win32
+		WLH free|x64 = WLH free|x64
+		WLH2K checked|Win32 = WLH2K checked|Win32
+		WLH2K checked|x64 = WLH2K checked|x64
+		WLH2K free|Win32 = WLH2K free|Win32
+		WLH2K free|x64 = WLH2K free|x64
+		WLHNET checked|Win32 = WLHNET checked|Win32
+		WLHNET checked|x64 = WLHNET checked|x64
+		WLHNET free|Win32 = WLHNET free|Win32
+		WLHNET free|x64 = WLHNET free|x64
+		WLHXP checked|Win32 = WLHXP checked|Win32
+		WLHXP checked|x64 = WLHXP checked|x64
+		WLHXP free|Win32 = WLHXP free|Win32
+		WLHXP free|x64 = WLHXP free|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.Debug|Win32.ActiveCfg = WLHNET checked|Win32
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.Debug|Win32.Build.0 = WLHNET checked|Win32
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.Debug|x64.ActiveCfg = WLHNET checked|x64
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.Debug|x64.Build.0 = WLHNET checked|x64
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.Release|Win32.ActiveCfg = WLHNET checked|Win32
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.Release|Win32.Build.0 = WLHNET checked|Win32
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.Release|x64.ActiveCfg = WLHNET checked|x64
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.Release|x64.Build.0 = WLHNET checked|x64
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.WLH checked|Win32.ActiveCfg = WLH checked|Win32
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.WLH checked|Win32.Build.0 = WLH checked|Win32
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.WLH checked|Win32.Deploy.0 = WLH checked|Win32
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.WLH checked|x64.ActiveCfg = WLH checked|x64
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.WLH checked|x64.Build.0 = WLH checked|x64
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.WLH free|Win32.ActiveCfg = WLH free|Win32
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.WLH free|Win32.Build.0 = WLH free|Win32
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.WLH free|Win32.Deploy.0 = WLH free|Win32
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.WLH free|x64.ActiveCfg = WLH free|x64
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.WLH free|x64.Build.0 = WLH free|x64
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.WLH2K checked|Win32.ActiveCfg = WLH2K checked|Win32
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.WLH2K checked|Win32.Build.0 = WLH2K checked|Win32
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.WLH2K checked|Win32.Deploy.0 = WLH2K checked|Win32
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.WLH2K checked|x64.ActiveCfg = WLH2K checked|x64
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.WLH2K checked|x64.Build.0 = WLH2K checked|x64
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.WLH2K free|Win32.ActiveCfg = WLH2K free|Win32
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.WLH2K free|Win32.Build.0 = WLH2K free|Win32
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.WLH2K free|Win32.Deploy.0 = WLH2K free|Win32
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.WLH2K free|x64.ActiveCfg = WLH2K free|x64
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.WLH2K free|x64.Build.0 = WLH2K free|x64
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.WLHNET checked|Win32.ActiveCfg = WLHNET checked|Win32
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.WLHNET checked|Win32.Build.0 = WLHNET checked|Win32
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.WLHNET checked|Win32.Deploy.0 = WLHNET checked|Win32
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.WLHNET checked|x64.ActiveCfg = WLHNET checked|x64
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.WLHNET checked|x64.Build.0 = WLHNET checked|x64
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.WLHNET free|Win32.ActiveCfg = WLHNET free|Win32
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.WLHNET free|Win32.Build.0 = WLHNET free|Win32
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.WLHNET free|Win32.Deploy.0 = WLHNET free|Win32
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.WLHNET free|x64.ActiveCfg = WLHNET free|x64
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.WLHNET free|x64.Build.0 = WLHNET free|x64
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.WLHXP checked|Win32.ActiveCfg = WLHXP checked|Win32
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.WLHXP checked|Win32.Build.0 = WLHXP checked|Win32
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.WLHXP checked|Win32.Deploy.0 = WLHXP checked|Win32
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.WLHXP checked|x64.ActiveCfg = WLHXP checked|x64
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.WLHXP checked|x64.Build.0 = WLHXP checked|x64
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.WLHXP free|Win32.ActiveCfg = WLHXP free|Win32
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.WLHXP free|Win32.Build.0 = WLHXP free|Win32
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.WLHXP free|Win32.Deploy.0 = WLHXP free|Win32
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.WLHXP free|x64.ActiveCfg = WLHXP free|x64
+		{9B975EC1-255D-466D-A04D-399C44C8144E}.WLHXP free|x64.Build.0 = WLHXP free|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+EndGlobal

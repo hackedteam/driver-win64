@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="UserMacros">
+    <DDKBUILD_PATH>ddkbuild.cmd</DDKBUILD_PATH>
+    <WLHBASE>C:\WinDDK\6001.18001</WLHBASE>
+  </PropertyGroup>
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <_PropertySheetDisplayName>Custom Environment Variables</_PropertySheetDisplayName>
+  </PropertyGroup>
+  <ItemGroup>
+    <BuildMacro Include="DDKBUILD_PATH">
+      <Value>$(DDKBUILD_PATH)</Value>
+    </BuildMacro>
+    <BuildMacro Include="WLHBASE">
+      <Value>$(WLHBASE)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

